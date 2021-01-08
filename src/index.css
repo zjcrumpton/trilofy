@@ -1,13 +1,252 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Actual Styling Starts Here */
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #111b24;
+  height: 100%;
+  font-family: "Roboto", sans-serif;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.sidenav {
+  width: 300px;
+  height: 100%;
+  background-color: #09233f;
+  display: block;
+  position: fixed;
+  overflow: auto;
+  left: 0;
+  top: 0;
+}
+
+.side-container-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+}
+
+.centered-flex-container {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+}
+
+.dashboard-logo {
+  font-size: 20px;
+  color: #adbdcc;
+  justify-self: left;
+  margin-left: 10px;
+}
+
+.dashboard-profile {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.login-logo {
+  color: #7a73ff;
+  font-weight: bold;
+  font-size: 100px;
+  display: block;
+  margin-top: 100px;
+  margin-bottom: 0;
+}
+
+.settings-dots {
+  margin-left: 80px;
+  margin-top: 5px;
+}
+
+.nav-link .settings-dots {
+  color: #00d4ff;
+}
+
+.login-sub {
+  color: #ffffff;
+  font-size: 35px;
+}
+
+.login-desc {
+  color: #97a8b9;
+  font-size: 20px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #adbdcc;
+  width: 0;
+}
+
+.trio-logos {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.trio-logo {
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.auth-btn {
+  border-radius: 33px;
+  border: none;
+  background-color: #00d4ff;
+  color: #0a2540;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  height: 40px;
+  margin-top: 20px;
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .login-sub {
+    font-size: 25px;
+  }
 }
