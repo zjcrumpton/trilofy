@@ -165,7 +165,7 @@ code {
 .search-provider-logos {
   margin-top: auto;
   margin-bottom: auto;
-  margin-right: 20px;
+  margin-right: 40px;
 }
 
 .side-container-flex {
@@ -339,7 +339,7 @@ code {
 
 @media only screen and (max-width: 1100px) {
   .search-bar:focus {
-    width: 400px;
+    width: 350px;
     outline: none !important;
     color: #635bff;
   }
@@ -347,7 +347,7 @@ code {
 
 @media only screen and (max-width: 1000px) {
   .search-bar:focus {
-    width: 350px;
+    width: 250px;
     outline: none !important;
     color: #635bff;
   }

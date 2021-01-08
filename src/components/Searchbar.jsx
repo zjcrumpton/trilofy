@@ -10,8 +10,8 @@ const Searchbar = () => {
         <input type="text" placeholder="Search" className="search-bar" />
         <input type="reset" value="X" className="reset-search"></input>
         <FaSpotify size={30} className="search-provider-logos" />
-        <FaSoundcloud size={30} className="search-provider-logos" />
-        <FaYoutube size={30} className="search-provider-logos" />
+        <FaSoundcloud size={40} className="search-provider-logos" />
+        <FaYoutube size={35} className="search-provider-logos" />
       </div>
     </form>
   );
