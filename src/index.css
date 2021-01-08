@@ -175,7 +175,7 @@ code {
 }
 
 .dashboard-logo {
-  font-size: 20px;
+  font-size: 15px;
   color: #adbdcc;
   justify-self: left;
   margin-left: 10px;
@@ -200,10 +200,6 @@ code {
   margin-top: 5px;
 }
 
-.nav-link .settings-dots {
-  color: #00d4ff;
-}
-
 .login-sub {
   color: #ffffff;
   font-size: 35px;
@@ -218,6 +214,47 @@ code {
   text-decoration: none;
   color: #adbdcc;
   width: 0;
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.c-link {
+  text-decoration: none;
+  color: #adbdcc;
+  width: 0;
+  font-weight: 800;
+  font-size: 18px;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.playlist-link {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.nav-indent {
+  margin-left: 30px;
+}
+
+.nav-home {
+  margin-top: 40px;
+  margin-left: 20px;
+}
+
+.nav-search {
+  margin-left: 20px;
+  margin-top: 25px;
+}
+
+.my-collection {
+  color: #635bff;
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 50px;
+  margin-right: auto;
+  margin-left: 20px;
+  display: block;
 }
 
 .trio-logos {
@@ -249,4 +286,33 @@ code {
   .login-sub {
     font-size: 25px;
   }
+}
+
+/* Search bar and back/forward buttons above dashboard */
+.search-nav {
+  margin-left: 300px;
+  margin-top: 25px;
+  display: flex;
+}
+
+.search-bar {
+  display: block;
+  margin-right: 25px;
+  border-radius: 10px;
+  height: 35px;
+  width: 400px;
+  background-color: #09233f;
+  color: #adbdcc;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  padding-left: 20px;
+  border: none;
+}
+
+.search-icon {
+  margin-right: 10px;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
 }
