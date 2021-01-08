@@ -296,8 +296,8 @@ code {
 }
 
 .search-bar {
-  display: block;
-  margin-right: 25px;
+  display: fixed;
+  margin-right: 10px;
   border-radius: 10px;
   height: 35px;
   width: 400px;
@@ -315,4 +315,25 @@ code {
   margin-left: auto;
   margin-top: auto;
   margin-bottom: auto;
+}
+
+.search-bar:focus {
+  width: 80%;
+  outline: none !important;
+  color: #635bff;
+}
+
+.search-bar:focus + .reset-search {
+  visibility: visible;
+}
+
+.reset-search {
+  margin-right: 10px;
+  transition-delay: 0.1s;
+  border-radius: 33px;
+  border: none;
+  visibility: hidden;
+  color: #635bff;
+  background-color: transparent;
+  font-size: 20px;
 }

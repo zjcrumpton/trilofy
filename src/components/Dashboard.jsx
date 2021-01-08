@@ -12,10 +12,13 @@ const Dashboard = () => {
   return (
     <div>
       <SideNav />
-      <div className="search-nav">
-        <FaSearch size={25} color="#adbdcc" className="search-icon" />
-        <input type="text" placeholder="Search" className="search-bar" />
-      </div>
+      <form>
+        <div className="search-nav">
+          <FaSearch size={25} color="#adbdcc" className="search-icon" />
+          <input type="text" placeholder="Search" className="search-bar" />
+          <input type="reset" value="X" className="reset-search"></input>
+        </div>
+      </form>
       <Route exact path="/dashboard" component={Authentication} />
       <Route exact path="/dashboard/settings" component={Settings} />
     </div>
