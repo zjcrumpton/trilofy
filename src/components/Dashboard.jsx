@@ -10,7 +10,7 @@ const Dashboard = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   return (
-    <div>
+    <div className="dashboard-offset">
       <SideNav />
       <Searchbar />
       <Route exact path="/dashboard" component={Authentication} />

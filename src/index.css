@@ -162,6 +162,43 @@ code {
   top: 0;
 }
 
+.settings {
+  max-width: 100%;
+  margin-left: 300px;
+}
+
+.platform-settings {
+  margin-top: auto;
+  margin-bottom: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
+
+.platform-card {
+  width: 300px;
+  height: 200px;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.connect-button {
+  width: 200px;
+  height: 60px;
+  border-radius: 33px;
+  border: none;
+  font-family: "Roboto", sans-serif;
+  background-color: #7a73ff;
+  color: #111b24;
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+
 .search-provider-logos {
   margin-top: auto;
   margin-bottom: auto;
@@ -214,6 +251,7 @@ code {
 .login-desc {
   color: #97a8b9;
   font-size: 20px;
+  margin-top: 20px;
 }
 
 .nav-link {
