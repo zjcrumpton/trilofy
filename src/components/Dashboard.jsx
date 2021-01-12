@@ -5,6 +5,7 @@ import { Route } from "react-router-dom";
 import Authentication from "./Authentication";
 import Settings from "./Settings";
 import Searchbar from "./Searchbar";
+import Home from "./Home";
 
 const Dashboard = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -15,6 +16,7 @@ const Dashboard = () => {
       <Searchbar />
       <Route exact path="/dashboard" component={Authentication} />
       <Route exact path="/dashboard/settings" component={Settings} />
+      <Route exact path="/dashboard/home" component={Home} />
     </div>
   );
 };

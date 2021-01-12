@@ -2,15 +2,19 @@ import React from "react";
 import { FaSpotify } from "react-icons/fa";
 import queryString from "query-string";
 import getCookie from "../../utilities/cookies";
+import StreamingContext, {
+  StreamingConsumer,
+} from "../../contexts/streamingContext";
 
 const SpotifyLogin = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(loggedIn());
+  const streamingContext = React.useContext(StreamingContext);
 
   let params = queryString.parse(window.location.hash);
 
   if (params["access_token"]) {
     const { access_token, expires_in } = params;
-    document.cookie = `spotifyAccess=${access_token}; max-age=${expires_in}; path=/dashboard/settings; SameSite=Lax;`;
+    document.cookie = `spotifyAccess=${access_token}; max-age=${expires_in}; path=/; SameSite=Lax;`;
 
     localStorage.setItem("spotifyAccess", params["access_token"]);
   }
@@ -20,15 +24,16 @@ const SpotifyLogin = () => {
       <div className="platform-card">
         <FaSpotify size={100} color={isLoggedIn ? "#17d85d" : "#adbdcc"} />
         <button
-          className="connect-button"
+          className="connect-button clickable"
           onClick={() => {
-            if (isLoggedIn) {
+            if (streamingContext.spotifyLoggedIn) {
               logoutOfSpotify();
               setIsLoggedIn(false);
-              console.log(isLoggedIn);
+              streamingContext.updateSpotifyLogin(false);
             } else {
               loginToSpotify();
               setIsLoggedIn(true);
+              streamingContext.updateSpotifyLogin(true);
             }
           }}
         >
@@ -45,8 +50,7 @@ const loginToSpotify = () => {
 };
 
 const logoutOfSpotify = () => {
-  document.cookie =
-    "spotifyAccess=expired; max-age=0; path=/dashboard/settings; SameSite=Lax";
+  document.cookie = "spotifyAccess=expired; max-age=0; path=/; SameSite=Lax";
 };
 
 const loggedIn = () => {

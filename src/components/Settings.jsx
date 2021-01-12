@@ -14,7 +14,7 @@ const LogoutButton = () => {
 
 const Settings = () => {
   return (
-    <div className="settings">
+    <div className="dashboard-panel">
       <SpotifyLogin />
       <LogoutButton />
     </div>

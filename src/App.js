@@ -4,11 +4,17 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Authentication from "./components/Authentication";
 import Dashboard from "./components/Dashboard";
 import { StreamingProvider } from "./contexts/streamingContext";
+import getCookie from "./utilities/cookies";
+
 class App extends React.Component {
   state = {
     currentStreamingPlatform: "spotify",
     setStreamingPlatform: (streamingPlatform) => {
       this.setState({ currentStreamingPlatform: streamingPlatform });
+    },
+    spotifyLoggedIn: spotifyLoggedIn(),
+    updateSpotifyLogin: (value) => {
+      this.setState({ spotifyLoggedIn: value });
     },
   };
 
@@ -28,5 +34,11 @@ class App extends React.Component {
     );
   }
 }
+
+const spotifyLoggedIn = () => {
+  return getCookie("spotifyAccess") && getCookie("spotifyAccess") !== "expired"
+    ? true
+    : false;
+};
 
 export default App;
