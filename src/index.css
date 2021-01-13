@@ -128,8 +128,9 @@ table {
   border-spacing: 0;
 }
 
-/* Actual Styling Starts Here */
+@import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
+/* Actual Styling Starts Here */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -149,6 +150,12 @@ code {
 
 .clickable {
   cursor: pointer;
+}
+
+.welcome-screen {
+  margin-top: auto;
+  margin-bottom: auto;
+  display: block;
 }
 
 .sidenav {
@@ -234,7 +241,7 @@ code {
   font-weight: bold;
   font-size: 100px;
   display: block;
-  margin-top: 100px;
+  margin-top: 12%;
   margin-bottom: 0;
 }
 
@@ -422,4 +429,74 @@ code {
   background-color: transparent;
   font-size: 20px;
   font-family: "Roboto", sans-serif;
+}
+
+/* Featured List */
+
+.featured-list {
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  margin-top: 20px;
+  margin-right: 30px;
+}
+
+.release-header {
+  margin-top: 30px;
+  text-align: left;
+  margin-left: 30px;
+  font-family: "Roboto", sans-serif;
+  color: white;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.release-type {
+  font-family: "Roboto", sans-serif;
+  color: #635bff;
+  font-weight: 600;
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+.release-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  text-align: left;
+  margin-left: 30px;
+}
+
+.release-credits {
+  margin-top: 10px;
+  color: #adbdcc;
+  font-weight: 300;
+}
+
+.release-credits:hover {
+  color: #00d4ff;
+}
+
+.release-image {
+  width: 250px;
+}
+
+.release-image + .release-title {
+  color: #00d4ff;
+}
+
+.release-title {
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.release-title:hover {
+  color: #00d4ff;
+}
+
+.centered-loader {
+  margin-top: auto;
+  display: block;
 }

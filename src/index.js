@@ -10,7 +10,7 @@ ReactDOM.render(
     <Auth0Provider
       domain="trilofy.us.auth0.com"
       clientId="7EsiST40SsKZCDheb4y6eimPp6ZTg0xL"
-      redirectUri="http://localhost:3000/logged-in"
+      redirectUri="http://localhost:3000/dashboard/home"
     >
       <App />
     </Auth0Provider>

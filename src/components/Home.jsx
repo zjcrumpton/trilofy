@@ -1,6 +1,8 @@
 import React from "react";
 import StreamingContext from "../contexts/streamingContext";
 import getCookie from "../utilities/cookies";
+import NewReleases from "../api/NewReleases";
+import RecentlyPlayed from "../api/RecentlyPlayed";
 
 const Home = () => {
   const streamingContext = React.useContext(StreamingContext);
@@ -10,7 +12,10 @@ const Home = () => {
   }
 
   return streamingContext.spotifyLoggedIn ? (
-    <div>Logged In</div>
+    <div className="dashboard-panel">
+      <NewReleases />
+      <RecentlyPlayed />
+    </div>
   ) : (
     loggedOutNotice()
   );

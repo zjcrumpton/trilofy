@@ -16,7 +16,7 @@ const LoginButton = () => {
 export default class Authentication extends React.Component {
   render() {
     return (
-      <div>
+      <div className="welcome-screen">
         <h1 className="login-logo">Trilofy</h1>
         <div className="trio-logos">
           <FaSpotify size="80" color="#1ed760" className="trio-logo" />
