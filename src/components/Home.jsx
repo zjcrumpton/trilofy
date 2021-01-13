@@ -3,6 +3,8 @@ import StreamingContext from "../contexts/streamingContext";
 import getCookie from "../utilities/cookies";
 import NewReleases from "../api/NewReleases";
 import RecentlyPlayed from "../api/RecentlyPlayed";
+import SpotifyLogin from "./streamingPlatformLogins/spotifyLogin";
+import TopArtists from "../api/TopArtists";
 
 const Home = () => {
   const streamingContext = React.useContext(StreamingContext);
@@ -15,6 +17,7 @@ const Home = () => {
     <div className="dashboard-panel">
       <NewReleases />
       <RecentlyPlayed />
+      <TopArtists />
     </div>
   ) : (
     loggedOutNotice()
@@ -23,8 +26,8 @@ const Home = () => {
 
 const loggedOutNotice = () => {
   return (
-    <div>
-      <p>You are logged out of spotify</p>
+    <div className="dashboard-panel dashboard-login">
+      <SpotifyLogin redirectUri="https://localhost:3000/dashboard/home" />
     </div>
   );
 };

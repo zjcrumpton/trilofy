@@ -15,7 +15,7 @@ const LogoutButton = () => {
 const Settings = () => {
   return (
     <div className="dashboard-panel">
-      <SpotifyLogin />
+      <SpotifyLogin redirectUri="https://localhost:3000/dashboard/settings" />
       <LogoutButton />
     </div>
   );

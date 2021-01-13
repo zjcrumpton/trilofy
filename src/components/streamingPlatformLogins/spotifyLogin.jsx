@@ -6,7 +6,7 @@ import StreamingContext, {
   StreamingConsumer,
 } from "../../contexts/streamingContext";
 
-const SpotifyLogin = () => {
+const SpotifyLogin = ({ redirectUri }) => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(loggedIn());
   const streamingContext = React.useContext(StreamingContext);
 
@@ -31,7 +31,7 @@ const SpotifyLogin = () => {
               setIsLoggedIn(false);
               streamingContext.updateSpotifyLogin(false);
             } else {
-              loginToSpotify();
+              loginToSpotify(redirectUri);
               setIsLoggedIn(true);
               streamingContext.updateSpotifyLogin(true);
             }
@@ -44,9 +44,9 @@ const SpotifyLogin = () => {
   );
 };
 
-const loginToSpotify = () => {
-  const scopes = "user-read-recently-played";
-  window.location.href = `https://accounts.spotify.com/authorize?client_id=eafc1d75f4cf413e891b0392579ee5da&redirect_uri=https://localhost:3000/dashboard/settings&response_type=token&scope=${encodeURIComponent(
+const loginToSpotify = (redirectUri) => {
+  const scopes = "user-read-recently-played user-top-read";
+  window.location.href = `https://accounts.spotify.com/authorize?client_id=eafc1d75f4cf413e891b0392579ee5da&redirect_uri=${redirectUri}&response_type=token&scope=${encodeURIComponent(
     scopes
   )}`;
 };

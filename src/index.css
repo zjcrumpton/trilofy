@@ -505,7 +505,6 @@ code {
   margin-top: 10px;
   color: #adbdcc;
   font-weight: 300;
-  margin-bottom: 10px;
 }
 
 .recent-credits:hover {
@@ -537,4 +536,25 @@ code {
   justify-content: left;
   text-align: left;
   margin-left: 30px;
+}
+
+.dashboard-login {
+  margin-top: 100px;
+}
+
+.face-pic {
+  border-radius: 100px;
+}
+
+.top-artist-name {
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.top-artist-name:hover {
+  color: #00d4ff;
 }

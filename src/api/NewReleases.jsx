@@ -14,31 +14,26 @@ const NewReleases = () => {
     if (json.hasOwnProperty("error")) {
       if (json["error"]["status"] === 401) {
         streamingContext.updateSpotifyLogin(false);
-        return null;
+        return (window.location.href = "localhost:3000/dashboard/settings/");
       }
     }
   };
 
   React.useEffect(() => {
-    // Prevents infinite loop until I understand this hook better
-    if (releaseArray !== null) {
-      return null;
-    }
-
-    fetchNewReleases().then(
-      (json) => {
-        spotifyExpirationHandler(json);
-        const items = json["albums"]["items"];
-        setReleaseArray(items);
-      },
-      [releaseArray]
-    );
-  });
+    fetchNewReleases().then((json) => {
+      spotifyExpirationHandler(json);
+      const items = json["albums"]["items"];
+      setReleaseArray(items);
+    });
+    return () => {
+      setReleaseArray(null);
+    };
+  }, []);
 
   if (releaseArray === null) {
     return (
       <Loader
-        type="Puff"
+        type="TailSpin"
         color="#adbdcc"
         height={100}
         width={100}

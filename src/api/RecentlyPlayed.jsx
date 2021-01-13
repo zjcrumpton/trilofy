@@ -11,38 +11,29 @@ const RecentlyPlayed = () => {
   const [recentArray, setRecentArray] = React.useState(null);
 
   const spotifyExpirationHandler = (json) => {
-    console.log(json);
     if (json.hasOwnProperty("error")) {
       if (json["error"]["status"] === 401) {
-        console.log(json["error"]["message"]);
         streamingContext.updateSpotifyLogin(false);
-        return (window.location.href = "localhost:3000/dashboard/settings/");
+        return null;
       }
     }
   };
 
   React.useEffect(() => {
-    // Prevents infinite loop until I understand this hook better
-    if (recentArray !== null) {
-      return null;
-    }
-
-    fetchRecentlyPlayed().then(
-      (json) => {
-        spotifyExpirationHandler(json);
-        const items = json["items"];
-
-        console.log(items);
-        setRecentArray(items);
-      },
-      [recentArray]
-    );
-  });
+    fetchRecentlyPlayed().then((json) => {
+      spotifyExpirationHandler(json);
+      const items = json["items"];
+      setRecentArray(items);
+    });
+    return () => {
+      setRecentArray(null);
+    };
+  }, []);
 
   if (recentArray === null) {
     return (
       <Loader
-        type="Puff"
+        type="TailSpin"
         color="#adbdcc"
         height={100}
         width={100}
@@ -82,10 +73,6 @@ const RecentlyPlayed = () => {
       </div>
     </div>
   );
-};
-
-const distinct = (value, index, self) => {
-  return self.indexOf(value) === index;
 };
 
 const fetchRecentlyPlayed = () =>
