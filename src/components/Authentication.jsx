@@ -1,17 +1,6 @@
 import React from "react";
 import { FaSpotify, FaSoundcloud, FaYoutube } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
-
-const LoginButton = () => {
-  const { loginWithRedirect } = useAuth0();
-
-  return (
-    <button className="auth-btn clickable" onClick={() => loginWithRedirect()}>
-      Start now
-    </button>
-  );
-};
 
 export default class Authentication extends React.Component {
   render() {
@@ -25,9 +14,9 @@ export default class Authentication extends React.Component {
         </div>
         <h2 className="login-sub">Spotify - Soundcloud - Youtube</h2>
         <p className="login-desc">Hear all your music in one place.</p>
-        <LoginButton>
-          <Link to="/sign-up"></Link>
-        </LoginButton>
+        <Link to="/dashboard/home">
+          <button className="auth-btn clickable">Start now</button>
+        </Link>
       </div>
     );
   }

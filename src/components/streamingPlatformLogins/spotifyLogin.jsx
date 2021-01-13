@@ -12,11 +12,15 @@ const SpotifyLogin = ({ redirectUri }) => {
 
   let params = queryString.parse(window.location.hash);
 
+  React.useEffect(() => {
+    if (streamingContext.spotifyLoggedIn !== isLoggedIn) {
+      streamingContext.updateSpotifyLogin(isLoggedIn);
+    }
+  }, [streamingContext.spotifyLoggedIn, isLoggedIn]);
+
   if (params["access_token"]) {
     const { access_token, expires_in } = params;
     document.cookie = `spotifyAccess=${access_token}; max-age=${expires_in}; path=/; SameSite=Lax;`;
-
-    localStorage.setItem("spotifyAccess", params["access_token"]);
   }
 
   return (
@@ -29,11 +33,9 @@ const SpotifyLogin = ({ redirectUri }) => {
             if (streamingContext.spotifyLoggedIn) {
               logoutOfSpotify();
               setIsLoggedIn(false);
-              streamingContext.updateSpotifyLogin(false);
             } else {
               loginToSpotify(redirectUri);
               setIsLoggedIn(true);
-              streamingContext.updateSpotifyLogin(true);
             }
           }}
         >

@@ -25,8 +25,6 @@ const TopArtists = () => {
     );
   }
 
-  console.log(items);
-
   return (
     <div>
       <h1 className="release-header">My Top Artists</h1>

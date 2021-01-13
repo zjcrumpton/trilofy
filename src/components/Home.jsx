@@ -5,22 +5,57 @@ import NewReleases from "../api/NewReleases";
 import RecentlyPlayed from "../api/RecentlyPlayed";
 import SpotifyLogin from "./streamingPlatformLogins/spotifyLogin";
 import TopArtists from "../api/TopArtists";
+import Loader from "react-loader-spinner";
 
 const Home = () => {
   const streamingContext = React.useContext(StreamingContext);
+  const [spotifyLoggedIn, setSpotifyLoggedIn] = React.useState(
+    isSpotifyActive()
+  );
+  const [loading, setLoading] = React.useState(true);
 
-  if (streamingContext.spotifyLoggedIn !== isSpotifyActive()) {
-    streamingContext.updateSpotifyLogin(isSpotifyActive());
+  React.useEffect(() => {
+    if (streamingContext.spotifyLoggedIn !== spotifyLoggedIn) {
+      setSpotifyLoggedIn(isSpotifyActive());
+      streamingContext.updateSpotifyLogin(spotifyLoggedIn);
+    }
+
+    setLoading(false);
+  }, [streamingContext, spotifyLoggedIn]);
+
+  if (loading) {
+    return (
+      <Loader
+        type="TailSpin"
+        color="#adbdcc"
+        height={100}
+        width={100}
+        className="centered-loader"
+      />
+    );
   }
 
-  return streamingContext.spotifyLoggedIn ? (
-    <div className="dashboard-panel">
-      <NewReleases />
-      <RecentlyPlayed />
-      <TopArtists />
+  if (
+    !spotifyLoggedIn &&
+    streamingContext.currentStreamingPlatform === "spotify"
+  ) {
+    return loggedOutNotice();
+  }
+
+  if (streamingContext.currentStreamingPlatform === "spotify") {
+    return (
+      <div className="dashboard-panel">
+        <NewReleases />
+        <RecentlyPlayed />
+        <TopArtists />
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <p>Soundcloud/youtube</p>
     </div>
-  ) : (
-    loggedOutNotice()
   );
 };
 
