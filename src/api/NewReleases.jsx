@@ -11,12 +11,10 @@ const NewReleases = () => {
   const [releaseArray, setReleaseArray] = React.useState(null);
 
   const spotifyExpirationHandler = (json) => {
-    console.log(json);
     if (json.hasOwnProperty("error")) {
       if (json["error"]["status"] === 401) {
-        console.log(json["error"]["message"]);
         streamingContext.updateSpotifyLogin(false);
-        return (window.location.href = "localhost:3000/dashboard/settings/");
+        return null;
       }
     }
   };
@@ -31,7 +29,6 @@ const NewReleases = () => {
       (json) => {
         spotifyExpirationHandler(json);
         const items = json["albums"]["items"];
-        console.log(items);
         setReleaseArray(items);
       },
       [releaseArray]

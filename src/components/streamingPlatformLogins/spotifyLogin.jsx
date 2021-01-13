@@ -45,8 +45,10 @@ const SpotifyLogin = () => {
 };
 
 const loginToSpotify = () => {
-  window.location.href =
-    "https://accounts.spotify.com/authorize?client_id=eafc1d75f4cf413e891b0392579ee5da&redirect_uri=https://localhost:3000/dashboard/settings&response_type=token";
+  const scopes = "user-read-recently-played";
+  window.location.href = `https://accounts.spotify.com/authorize?client_id=eafc1d75f4cf413e891b0392579ee5da&redirect_uri=https://localhost:3000/dashboard/settings&response_type=token&scope=${encodeURIComponent(
+    scopes
+  )}`;
 };
 
 const logoutOfSpotify = () => {

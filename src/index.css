@@ -500,3 +500,41 @@ code {
   margin-top: auto;
   display: block;
 }
+
+.recent-credits {
+  margin-top: 10px;
+  color: #adbdcc;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+
+.recent-credits:hover {
+  color: #00d4ff;
+}
+
+.recent-image {
+  width: 180px;
+}
+
+.recent-image + .release-title {
+  color: #00d4ff;
+}
+
+.recent-title {
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.recent-title:hover {
+  color: #00d4ff;
+}
+
+.recent-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  text-align: left;
+  margin-left: 30px;
+}
