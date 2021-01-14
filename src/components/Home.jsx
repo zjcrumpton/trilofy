@@ -47,6 +47,7 @@ const Home = () => {
         <RecentlyPlayed />
         <TopArtists />
         <FeaturedPlaylists />
+        <div className="spacer"></div>
       </div>
     );
   }

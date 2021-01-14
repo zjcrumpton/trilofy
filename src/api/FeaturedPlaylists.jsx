@@ -24,7 +24,7 @@ const FeaturedPlaylists = () => {
       <h1 className="release-header">Featured Playlists</h1>
       <div className="featured-list">
         {data["playlists"]["items"].map((p, index) => {
-          const playlist = formatPlaylist(p);
+          const playlist = formatSpotifyPlaylist(p);
 
           // Removes playlists with links in their descriptions
           if (playlist.desc.includes("<a")) {
@@ -38,7 +38,7 @@ const FeaturedPlaylists = () => {
   );
 };
 
-const formatPlaylist = (playlist) => {
+const formatSpotifyPlaylist = (playlist) => {
   return {
     name: playlist["name"],
     desc: playlist["description"],

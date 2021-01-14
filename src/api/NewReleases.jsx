@@ -1,80 +1,44 @@
-import React from "react";
-import StreamingContext, {
-  StreamingConsumer,
-} from "../contexts/streamingContext";
+import React, { useContext } from "react";
+import StreamingContext from "../contexts/streamingContext";
 import getCookie from "../utilities/cookies";
-import Loader from "react-loader-spinner";
+import TailSpinLoader from "../components/ui/TailSpinLoader";
+import MedAlbum from "../components/ui/MedAlbum";
+import useFetchByPlatform from "../hooks/useFetchByPlatform";
+
+const endpoints = {
+  spotify: "https://api.spotify.com/v1/browse/new-releases",
+  soundcloud: "",
+  youtube: "",
+};
 
 const NewReleases = () => {
-  const streamingContext = React.useContext(StreamingContext);
+  const { platform } = useContext(StreamingContext);
+  const { loading, data } = useFetchByPlatform(endpoints[`${platform}`]);
 
-  const [releaseArray, setReleaseArray] = React.useState(null);
-
-  const spotifyExpirationHandler = (json) => {
-    if (json.hasOwnProperty("error")) {
-      if (json["error"]["status"] === 401) {
-        streamingContext.updateSpotifyLogin(false);
-        return (window.location.href = "localhost:3000/dashboard/settings/");
-      }
-    }
-  };
-
-  React.useEffect(() => {
-    fetchNewReleases().then((json) => {
-      spotifyExpirationHandler(json);
-      const items = json["albums"]["items"];
-      setReleaseArray(items);
-    });
-    return () => {
-      setReleaseArray(null);
-    };
-  }, []);
-
-  if (releaseArray === null) {
-    return (
-      <Loader
-        type="TailSpin"
-        color="#adbdcc"
-        height={100}
-        width={100}
-        className="centered-loader"
-      />
-    );
+  if (loading) {
+    return <TailSpinLoader />;
   }
 
   return (
     <div>
       <h1 className="release-header">New Releases</h1>
       <div className="featured-list" style={{ color: "red" }}>
-        {releaseArray.map((item, index) => {
-          return (
-            <div key={index} className="release-card">
-              <img
-                className="release-image clickable"
-                src={item["images"][1]["url"]}
-                alt={`Cover art for ${item["name"]}`}
-              ></img>
-              <h3 className="release-type">
-                NEW {`${item["album_type"].toUpperCase()}`}
-              </h3>
-              <h3 className="release-title clickable">{item["name"]}</h3>
-              <h3 className="release-credits clickable">
-                {item["artists"][0].name}
-              </h3>
-            </div>
-          );
+        {data["albums"]["items"].map((item, index) => {
+          const album = formatSpotifyAlbum(item);
+          return <MedAlbum key={index} album={album} />;
         })}
       </div>
     </div>
   );
 };
 
-const fetchNewReleases = () =>
-  fetch("https://api.spotify.com/v1/browse/new-releases", {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${getCookie("spotifyAccess")}`,
-    },
-  }).then((resp) => resp.json());
+const formatSpotifyAlbum = (album) => {
+  return {
+    name: album["name"],
+    type: album["album_type"],
+    desc: album["artists"][0].name,
+    src: album["images"][0]["url"],
+  };
+};
 
 export default NewReleases;

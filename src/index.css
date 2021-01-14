@@ -558,3 +558,8 @@ code {
 .top-artist-name:hover {
   color: #00d4ff;
 }
+
+.spacer {
+  width: 100%;
+  height: 20px;
+}

@@ -1,45 +1,21 @@
-import React from "react";
-import StreamingContext, {
-  StreamingConsumer,
-} from "../contexts/streamingContext";
-import getCookie from "../utilities/cookies";
-import Loader from "react-loader-spinner";
+import React, { useContext } from "react";
+import StreamingContext from "../contexts/streamingContext";
+import TailSpinLoader from "../components/ui/TailSpinLoader";
+import useFetchByPlatform from "../hooks/useFetchByPlatform";
+import SmallAlbum from "../components/ui/SmallAlbum";
+
+const endpoints = {
+  spotify: "https://api.spotify.com/v1/me/player/recently-played",
+  soundcloud: "",
+  youtube: "",
+};
 
 const RecentlyPlayed = () => {
-  const streamingContext = React.useContext(StreamingContext);
+  const { platform } = useContext(StreamingContext);
+  const { loading, data } = useFetchByPlatform(endpoints[`${platform}`]);
 
-  const [recentArray, setRecentArray] = React.useState(null);
-
-  const spotifyExpirationHandler = (json) => {
-    if (json.hasOwnProperty("error")) {
-      if (json["error"]["status"] === 401) {
-        streamingContext.updateSpotifyLogin(false);
-        return null;
-      }
-    }
-  };
-
-  React.useEffect(() => {
-    fetchRecentlyPlayed().then((json) => {
-      spotifyExpirationHandler(json);
-      const items = json["items"];
-      setRecentArray(items);
-    });
-    return () => {
-      setRecentArray(null);
-    };
-  }, []);
-
-  if (recentArray === null) {
-    return (
-      <Loader
-        type="TailSpin"
-        color="#adbdcc"
-        height={100}
-        width={100}
-        className="centered-loader"
-      />
-    );
+  if (loading) {
+    return <TailSpinLoader />;
   }
 
   const renderedAlbums = [];
@@ -47,40 +23,28 @@ const RecentlyPlayed = () => {
   return (
     <div>
       <h1 className="release-header">Recently Played</h1>
-      <div className="featured-list" style={{ color: "red" }}>
-        {recentArray.map((item, index) => {
-          if (renderedAlbums.includes(item["track"]["album"]["name"])) {
+      <div className="featured-list">
+        {data["items"].map((item, index) => {
+          const album = formatSpotifyAlbum(item);
+          // Avoids rendering an album twice
+          if (renderedAlbums.includes(album.name)) {
             return null;
-          } else {
-            renderedAlbums.push(item["track"]["album"]["name"]);
-            return (
-              <div key={index} className="recent-card">
-                <img
-                  className="recent-image clickable"
-                  src={item["track"]["album"]["images"][1]["url"]}
-                  alt={`Cover art for ${item["track"]["album"]["name"]}`}
-                ></img>
-                <h3 className="recent-title clickable">
-                  {item["track"]["album"]["name"]}
-                </h3>
-                <h3 className="recent-credits clickable">
-                  {item["track"]["artists"][0].name}
-                </h3>
-              </div>
-            );
           }
+          renderedAlbums.push(album.name);
+
+          return <SmallAlbum key={index} album={album} />;
         })}
       </div>
     </div>
   );
 };
 
-const fetchRecentlyPlayed = () =>
-  fetch("https://api.spotify.com/v1/me/player/recently-played", {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${getCookie("spotifyAccess")}`,
-    },
-  }).then((resp) => resp.json());
+const formatSpotifyAlbum = (album) => {
+  return {
+    name: album["track"]["album"]["name"],
+    desc: album["track"]["artists"][0].name,
+    src: album["track"]["album"]["images"][1]["url"],
+  };
+};
 
 export default RecentlyPlayed;
