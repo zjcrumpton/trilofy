@@ -1,57 +1,45 @@
-import React from "react";
+import React, { useContext } from "react";
 import getCookie from "../utilities/cookies";
 import Loader from "react-loader-spinner";
+import ArtistPic from "../components/ui/ArtistPic";
+import useFetchByPlatform from "../hooks/useFetchByPlatform";
+import TailSpinLoader from "../components/ui/TailSpinLoader";
+import StreamingContext from "../contexts/streamingContext";
+
+const endpoints = {
+  spotify: "https://api.spotify.com/v1/me/top/artists",
+  soundcloud: "",
+  youtube: "",
+};
 
 const TopArtists = () => {
-  const [loading, setLoading] = React.useState(true);
-  const [items, setItems] = React.useState(null);
+  const { platform } = useContext(StreamingContext);
 
-  React.useEffect(() => {
-    fetchTopArtists().then((json) => {
-      setItems(json["items"]);
-      setLoading(false);
-    });
-  }, []);
+  const { loading, data } = useFetchByPlatform(endpoints[`${platform}`]);
 
   if (loading) {
-    return (
-      <Loader
-        type="TailSpin"
-        color="#adbdcc"
-        height={100}
-        width={100}
-        className="centered-loader"
-      />
-    );
+    return <TailSpinLoader />;
   }
 
   return (
     <div>
       <h1 className="release-header">My Top Artists</h1>
       <div className="featured-list">
-        {items.map((item, index) => {
-          return (
-            <div key={index} className="recent-card">
-              <img
-                className="recent-image clickable face-pic"
-                src={item["images"][1]["url"]}
-                alt={`Picture of ${item["name"]}'s face`}
-              ></img>
-              <h3 className="top-artist-name clickable">{item["name"]}</h3>
-            </div>
-          );
+        {data["items"].map((item, index) => {
+          const artist = formatSpotifyArtist(item);
+
+          return <ArtistPic key={index} artist={artist} />;
         })}
       </div>
     </div>
   );
 };
 
-const fetchTopArtists = () =>
-  fetch("https://api.spotify.com/v1/me/top/artists", {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${getCookie("spotifyAccess")}`,
-    },
-  }).then((resp) => resp.json());
+const formatSpotifyArtist = (artist) => {
+  return {
+    name: artist["name"],
+    src: artist["images"][1]["url"],
+  };
+};
 
 export default TopArtists;

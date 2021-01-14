@@ -13,7 +13,7 @@ const endpoints = {
 const FeaturedPlaylists = () => {
   const { platform } = useContext(StreamingContext);
 
-  const { loading, data, error } = useFetchByPlatform(endpoints[`${platform}`]);
+  const { loading, data } = useFetchByPlatform(endpoints[`${platform}`]);
 
   if (loading) {
     return <TailSpinLoader />;
