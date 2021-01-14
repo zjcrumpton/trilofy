@@ -43,6 +43,8 @@ const Home = () => {
   if (streamingContext.platform === "spotify") {
     return (
       <div className="dashboard-panel">
+        <div className="spacer"></div>
+        <div className="spacer"></div>
         <NewReleases />
         <RecentlyPlayed />
         <TopArtists />

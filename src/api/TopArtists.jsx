@@ -1,6 +1,4 @@
 import React, { useContext } from "react";
-import getCookie from "../utilities/cookies";
-import Loader from "react-loader-spinner";
 import ArtistPic from "../components/ui/ArtistPic";
 import useFetchByPlatform from "../hooks/useFetchByPlatform";
 import TailSpinLoader from "../components/ui/TailSpinLoader";
