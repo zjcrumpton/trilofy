@@ -6,6 +6,7 @@ import RecentlyPlayed from "../api/RecentlyPlayed";
 import SpotifyLogin from "./streamingPlatformLogins/spotifyLogin";
 import TopArtists from "../api/TopArtists";
 import Loader from "react-loader-spinner";
+import FeaturedPlaylists from "../api/FeaturedPlaylists";
 
 const Home = () => {
   const streamingContext = React.useContext(StreamingContext);
@@ -48,6 +49,7 @@ const Home = () => {
         <NewReleases />
         <RecentlyPlayed />
         <TopArtists />
+        <FeaturedPlaylists />
       </div>
     );
   }
