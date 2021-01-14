@@ -36,14 +36,11 @@ const Home = () => {
     );
   }
 
-  if (
-    !spotifyLoggedIn &&
-    streamingContext.currentStreamingPlatform === "spotify"
-  ) {
+  if (!spotifyLoggedIn && streamingContext.platform === "spotify") {
     return loggedOutNotice();
   }
 
-  if (streamingContext.currentStreamingPlatform === "spotify") {
+  if (streamingContext.platform === "spotify") {
     return (
       <div className="dashboard-panel">
         <NewReleases />

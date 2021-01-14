@@ -8,14 +8,15 @@ import getCookie from "./utilities/cookies";
 
 class App extends React.Component {
   state = {
-    currentStreamingPlatform: "spotify",
+    platform: "spotify",
     setStreamingPlatform: (streamingPlatform) => {
-      this.setState({ currentStreamingPlatform: streamingPlatform });
+      this.setState({ platform: streamingPlatform });
     },
     spotifyLoggedIn: spotifyLoggedIn(),
     updateSpotifyLogin: (value) => {
       this.setState({ spotifyLoggedIn: value });
     },
+    logoutSpotify: () => logoutOfSpotify(),
   };
 
   render() {
@@ -39,6 +40,10 @@ const spotifyLoggedIn = () => {
   return getCookie("spotifyAccess") && getCookie("spotifyAccess") !== "expired"
     ? true
     : false;
+};
+
+const logoutOfSpotify = () => {
+  document.cookie = "spotifyAccess=expired; max-age=0; path=/; SameSite=Lax";
 };
 
 export default App;

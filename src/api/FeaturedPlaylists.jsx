@@ -1,67 +1,49 @@
-import React, { useEffect } from "react";
-import Loader from "react-loader-spinner";
-import getCookie from "../utilities/cookies";
+import React, { useContext } from "react";
+import TailSpinLoader from "../components/ui/TailSpinLoader";
+import useFetchByPlatform from "../hooks/useFetchByPlatform";
+import StreamingContext from "../contexts/streamingContext";
+import SmallAlbum from "../components/ui/SmallAlbum";
+
+const endpoints = {
+  spotify: "https://api.spotify.com/v1/browse/featured-playlists?locale=en_US",
+  soundcloud: "",
+  youtube: "",
+};
 
 const FeaturedPlaylists = () => {
-  const [loading, setLoading] = React.useState(true);
-  const [playlists, setPlaylists] = React.useState(null);
+  const { platform } = useContext(StreamingContext);
 
-  useEffect(() => {
-    fetchFeaturedPlaylists.then((json) => {
-      setPlaylists(json["playlists"]["items"]);
-      setLoading(false);
-    });
-  }, []);
+  const { loading, data, error } = useFetchByPlatform(endpoints[`${platform}`]);
 
   if (loading) {
-    return (
-      <Loader
-        type="TailSpin"
-        color="#adbdcc"
-        height={100}
-        width={100}
-        className="centered-loader"
-      />
-    );
+    return <TailSpinLoader />;
   }
-
-  console.log(playlists);
 
   return (
     <div>
       <h1 className="release-header">Featured Playlists</h1>
       <div className="featured-list">
-        {playlists.map((p, index) => {
-          // Temporary fix for html included in some titles
-          if (p["description"].includes("<a")) {
+        {data["playlists"]["items"].map((p, index) => {
+          const playlist = formatPlaylist(p);
+
+          // Removes playlists with links in their descriptions
+          if (playlist.desc.includes("<a")) {
             return null;
           }
 
-          return (
-            <div key={index} className="recent-card">
-              <img
-                className="recent-image clickable"
-                src={p["images"][0]["url"]}
-                alt={`Cover art for ${p["name"]}`}
-              ></img>
-              <h3 className="recent-title clickable">{p["name"]}</h3>
-              <h3 className="recent-credits clickable">{p["description"]}</h3>
-            </div>
-          );
+          return <SmallAlbum key={index} album={playlist} />;
         })}
       </div>
     </div>
   );
 };
 
-const fetchFeaturedPlaylists = fetch(
-  "https://api.spotify.com/v1/browse/featured-playlists?locale=en_US",
-  {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${getCookie("spotifyAccess")}`,
-    },
-  }
-).then((resp) => resp.json());
+const formatPlaylist = (playlist) => {
+  return {
+    name: playlist["name"],
+    desc: playlist["description"],
+    src: playlist["images"][0]["url"],
+  };
+};
 
 export default FeaturedPlaylists;

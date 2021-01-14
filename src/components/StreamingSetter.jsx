@@ -6,22 +6,22 @@ export default class StreamingSetter extends React.Component {
   render() {
     return (
       <StreamingConsumer>
-        {({ currentStreamingPlatform, setStreamingPlatform }) => (
+        {({ platform, setStreamingPlatform }) => (
           <div className="centered-flex-container">
             <FaSpotify
-              color={setStreamingColor(currentStreamingPlatform, "spotify")}
+              color={setStreamingColor(platform, "spotify")}
               onClick={() => setStreamingPlatform("spotify")}
               size={30}
               className="search-provider-logos"
             />
             <FaSoundcloud
-              color={setStreamingColor(currentStreamingPlatform, "soundcloud")}
+              color={setStreamingColor(platform, "soundcloud")}
               onClick={() => setStreamingPlatform("soundcloud")}
               size={40}
               className="search-provider-logos"
             />
             <FaYoutube
-              color={setStreamingColor(currentStreamingPlatform, "youtube")}
+              color={setStreamingColor(platform, "youtube")}
               onClick={() => setStreamingPlatform("youtube")}
               size={35}
               className="search-provider-logos"
