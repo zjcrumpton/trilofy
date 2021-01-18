@@ -26,12 +26,14 @@ const RecentlyPlayed = () => {
       <div className="featured-list">
         {data["items"].map((item, index) => {
           const album = formatSpotifyAlbum(item);
+
+          console.log(item);
+
           // Avoids rendering an album twice
           if (renderedAlbums.includes(album.name)) {
             return null;
           }
           renderedAlbums.push(album.name);
-
           return <SmallAlbum key={index} album={album} />;
         })}
       </div>
@@ -41,6 +43,7 @@ const RecentlyPlayed = () => {
 
 const formatSpotifyAlbum = (album) => {
   return {
+    id: album["track"]["album"]["id"],
     name: album["track"]["album"]["name"],
     desc: album["track"]["artists"][0].name,
     src: album["track"]["album"]["images"][1]["url"],

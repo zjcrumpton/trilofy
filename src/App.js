@@ -1,11 +1,16 @@
 import "./App.css";
 import React from "react";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Authentication from "./components/Authentication";
 import Dashboard from "./components/Dashboard";
 import { StreamingProvider } from "./contexts/streamingContext";
 import getCookie from "./utilities/cookies";
 
+const spotifyLoggedIn = () => {
+  return getCookie("spotifyAccess") && getCookie("spotifyAccess") !== "expired"
+    ? true
+    : false;
+};
 class App extends React.Component {
   state = {
     platform: "spotify",
@@ -35,12 +40,6 @@ class App extends React.Component {
     );
   }
 }
-
-const spotifyLoggedIn = () => {
-  return getCookie("spotifyAccess") && getCookie("spotifyAccess") !== "expired"
-    ? true
-    : false;
-};
 
 const logoutOfSpotify = () => {
   document.cookie = "spotifyAccess=expired; max-age=0; path=/; SameSite=Lax";

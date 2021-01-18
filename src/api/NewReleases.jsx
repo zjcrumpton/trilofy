@@ -19,10 +19,12 @@ const NewReleases = () => {
     return <TailSpinLoader />;
   }
 
+  // console.log(data);
+
   return (
     <div>
       <h1 className="release-header">New Releases</h1>
-      <div className="featured-list" style={{ color: "red" }}>
+      <div className="featured-list">
         {data["albums"]["items"].map((item, index) => {
           const album = formatSpotifyAlbum(item);
           return <MedAlbum key={index} album={album} />;

@@ -413,6 +413,19 @@ code {
   .search-provider-logos {
     display: none;
   }
+
+  .sidenav {
+    display: none;
+  }
+
+  .dashboard-panel {
+    max-width: 100%;
+    margin-left: 0;
+  }
+
+  .featured-list {
+    margin-right: 0px !important;
+  }
 }
 
 .search-bar:focus + .reset-search {
@@ -536,6 +549,7 @@ code {
   justify-content: left;
   text-align: left;
   margin-left: 30px;
+  text-decoration: none;
 }
 
 .dashboard-login {
@@ -569,4 +583,56 @@ code {
   top: 0;
   right: 0px;
   left: 0;
+}
+
+.clean-link {
+  text-decoration: none;
+}
+
+/* Album Page */
+.album-cover {
+  width: 250px;
+  height: 250px;
+}
+
+.album-info {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  margin-left: 30px;
+  margin-top: 60px;
+}
+
+.title-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+  text-align: left;
+  margin-left: 30px;
+}
+
+.album-page-title {
+  color: white;
+  font-size: 30px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+}
+
+.album-page-artist {
+  font-family: "Roboto", sans-serif;
+  color: #adbdcc;
+  margin-top: 12px;
+}
+
+.album-page-artist:hover {
+  color: #00d4ff;
+  font-weight: 500;
+}
+
+.album-page-date {
+  color: #adbdcc;
+  margin-top: 12px;
+  font-weight: 500;
+  font-size: 13px;
 }

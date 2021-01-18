@@ -35,6 +35,7 @@ const useFetchByPlatform = (url) => {
 
   const handleSpotifyError = (error) => {
     const { status } = error;
+    setLoading(true);
 
     console.log(error);
 
