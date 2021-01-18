@@ -12,19 +12,19 @@ export default class StreamingSetter extends React.Component {
               color={setStreamingColor(platform, "spotify")}
               onClick={() => setStreamingPlatform("spotify")}
               size={30}
-              className="search-provider-logos"
+              className="search-provider-logos clickable"
             />
             <FaSoundcloud
               color={setStreamingColor(platform, "soundcloud")}
               onClick={() => setStreamingPlatform("soundcloud")}
               size={40}
-              className="search-provider-logos"
+              className="search-provider-logos clickable"
             />
             <FaYoutube
               color={setStreamingColor(platform, "youtube")}
               onClick={() => setStreamingPlatform("youtube")}
               size={35}
-              className="search-provider-logos"
+              className="search-provider-logos clickable"
             />
           </div>
         )}
