@@ -636,3 +636,72 @@ code {
   font-weight: 500;
   font-size: 13px;
 }
+
+.album-nav {
+  margin-top: 30px;
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  margin-left: 30px;
+}
+
+.album-nav-btn {
+  width: 150px;
+  height: 50px;
+  border-radius: 100px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  background-color: #adbdcc;
+  margin-right: 30px;
+}
+
+.album-nav-btn:hover {
+  background-color: #635bff;
+}
+
+.btn-content {
+  margin-top: auto;
+  margin-bottom: auto;
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.album-add-btn {
+  margin-left: auto;
+  margin-right: 30px;
+  border: none;
+  background-color: transparent;
+  color: #adbdcc;
+}
+
+.album-add-btn:hover {
+  color: #635bff;
+}
+
+.album-credits-btn {
+  margin-right: 60px;
+  border: none;
+  background-color: transparent;
+  color: #adbdcc;
+}
+
+.album-credits-btn:hover {
+  color: #635bff;
+}
+
+.ml-10 {
+  margin-left: 10px;
+  color: #111b24;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+}
