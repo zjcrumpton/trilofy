@@ -7,6 +7,7 @@ import { FaPlay } from "react-icons/fa";
 import { BiShuffle } from "react-icons/bi";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { AiFillInfoCircle as Info } from "react-icons/ai";
+import Tracklist from "../components/ui/Tracklist";
 
 const endpoints = {
   spotify: "https://api.spotify.com/v1/albums",
@@ -32,7 +33,7 @@ const AlbumPage = () => {
 
   console.log(data);
 
-  const { images, name, release_date, artists } = data;
+  const { images, name, release_date, artists, tracks } = data;
 
   return (
     <React.Fragment>
@@ -76,6 +77,8 @@ const AlbumPage = () => {
             <Info color="adbdcc" size={35} />
           </button>
         </div>
+
+        <Tracklist tracks={tracks.items} />
       </div>
     </React.Fragment>
   );
