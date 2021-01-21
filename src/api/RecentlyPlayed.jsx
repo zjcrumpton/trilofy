@@ -26,9 +26,6 @@ const RecentlyPlayed = () => {
       <div className="featured-list">
         {data["items"].map((item, index) => {
           const album = formatSpotifyAlbum(item);
-
-          console.log(item);
-
           // Avoids rendering an album twice
           if (renderedAlbums.includes(album.name)) {
             return null;

@@ -31,10 +31,8 @@ const AlbumPage = () => {
     return <TailSpinLoader />;
   }
 
-  console.log(data);
-
   const { images, name, release_date, artists, tracks } = data;
-
+  console.log(tracks);
   return (
     <React.Fragment>
       <div className="spacer"></div>

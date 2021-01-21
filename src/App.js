@@ -22,6 +22,10 @@ class App extends React.Component {
       this.setState({ spotifyLoggedIn: value });
     },
     logoutSpotify: () => logoutOfSpotify(),
+    spDeviceId: "",
+    setSpDeviceId: (id) => {
+      this.setState({ spDeviceId: id });
+    },
   };
 
   render() {
