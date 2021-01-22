@@ -26,6 +26,22 @@ class App extends React.Component {
     setSpDeviceId: (id) => {
       this.setState({ spDeviceId: id });
     },
+    spUris: [],
+    setSpUris: (arr) => {
+      this.setState({ spUris: arr });
+    },
+    next: null,
+    setNext: (uri) => {
+      this.setState({ next: uri });
+    },
+    last: null,
+    setLast: (uri) => {
+      this.setState({ last: uri });
+    },
+    currentSong: null,
+    setCurrentSong: (uri) => {
+      this.setState({ currentSong: uri });
+    },
   };
 
   render() {

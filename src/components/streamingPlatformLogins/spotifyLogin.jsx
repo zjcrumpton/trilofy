@@ -48,7 +48,7 @@ const SpotifyLogin = ({ redirectUri }) => {
 
 const loginToSpotify = (redirectUri) => {
   const scopes =
-    "user-read-recently-played user-top-read streaming user-read-email user-read-private user-modify-playback-state user-read-playback-state";
+    "user-read-recently-played user-top-read streaming user-read-email user-read-private user-modify-playback-state user-read-playback-state user-read-currently-playing";
   window.location.href = `https://accounts.spotify.com/authorize?client_id=eafc1d75f4cf413e891b0392579ee5da&redirect_uri=${redirectUri}&response_type=token&scope=${encodeURIComponent(
     scopes
   )}`;

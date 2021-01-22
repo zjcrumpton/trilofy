@@ -550,6 +550,7 @@ code {
   text-align: left;
   margin-left: 30px;
   text-decoration: none;
+  width: 180px;
 }
 
 .dashboard-login {
@@ -754,4 +755,8 @@ td {
 .vert-centered {
   margin-top: auto;
   margin-bottom: auto;
+}
+
+.blue {
+  color: #00d4ff;
 }

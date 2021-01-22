@@ -1,18 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import StreamingContext from "../../contexts/streamingContext";
 import { FaPlay } from "react-icons/fa";
+import { startSpotifyPlayback } from "../../api/spotifyPlayback";
+import { BsSpeaker } from "react-icons/bs";
 
 const TracklistItems = ({ tracks }) => {
-  return tracks.map((track, i) => <TrackItem track={track} index={i} />);
+  return tracks.map((track, i) => (
+    <TrackItem track={track} index={i} album={tracks} />
+  ));
 };
 
-const TrackItem = ({ track, index }) => {
+const TrackItem = ({ track, index, album }) => {
   const [hovering, setHovering] = useState(false);
+  const {
+    spDeviceId,
+    next,
+    setNext,
+    last,
+    setLast,
+    currentSong,
+    setCurrentSong,
+  } = useContext(StreamingContext);
 
   const toggleHover = () => {
     hovering ? setHovering(false) : setHovering(true);
   };
 
-  const { track_number, name, artists, duration_ms } = track;
+  const playSong = () => {
+    startSpotifyPlayback(spDeviceId, 0, [uri]).then(() => {
+      setCurrentSong(uri);
+    });
+    if (index < album.length - 1) {
+      setNext(album[index + 1].uri);
+    } else {
+      setNext(album[0].uri);
+    }
+    if (index > 0) {
+      setLast(album[index - 1].uri);
+    } else {
+      setLast(album[0].uri);
+    }
+  };
+
+  useEffect(() => {
+    console.log(currentSong);
+  }, [currentSong]);
+
+  const { track_number, name, artists, duration_ms, uri } = track;
+
   let minutes = Math.floor(duration_ms / 60000);
   let seconds = ((duration_ms % 60000) / 1000).toFixed(0);
   let duration = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
@@ -26,12 +61,27 @@ const TrackItem = ({ track, index }) => {
     >
       <td className="gray-num">
         {hovering ? (
-          <FaPlay className="clickable vert-centered" color="white" size={13} />
+          <FaPlay
+            onClick={() => playSong()}
+            className="clickable vert-centered"
+            color="white"
+            size={13}
+          />
+        ) : uri === currentSong ? (
+          <BsSpeaker size={13} />
         ) : (
           track_number
         )}
       </td>
-      <td className="clickable">{name}</td>
+      {uri === currentSong ? (
+        <td className="clickable blue" onClick={() => playSong()}>
+          {name}
+        </td>
+      ) : (
+        <td className="clickable" onClick={() => playSong()}>
+          {name}
+        </td>
+      )}
       <td className="clickable artist-link">{artists[0].name}</td>
       <td>{duration}</td>
     </tr>

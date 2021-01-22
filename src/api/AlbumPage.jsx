@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useFetchByPlatform from "../hooks/useFetchByPlatform";
 import StreamingContext from "../contexts/streamingContext";
@@ -8,6 +8,7 @@ import { BiShuffle } from "react-icons/bi";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { AiFillInfoCircle as Info } from "react-icons/ai";
 import Tracklist from "../components/ui/Tracklist";
+import { startSpotifyPlayback } from "../api/spotifyPlayback";
 
 const endpoints = {
   spotify: "https://api.spotify.com/v1/albums",
@@ -15,11 +16,35 @@ const endpoints = {
   youtube: "",
 };
 
+const playlistSpotifyUris = (tracks) => {
+  const result = [];
+  tracks.map((track) => {
+    result.push(track.uri);
+  });
+  return result;
+};
+
 const AlbumPage = () => {
   const { id } = useParams();
-  const { platform } = useContext(StreamingContext);
+  const {
+    platform,
+    setSpUris,
+    spDeviceId,
+    spUris,
+    setCurrentSong,
+  } = useContext(StreamingContext);
   const { loading, data } = useFetchByPlatform(`${endpoints[platform]}/${id}`);
   const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    if (!loading) {
+      setSpUris(playlistSpotifyUris(data.tracks.items));
+    }
+
+    return () => {
+      setSpUris([]);
+    };
+  }, [loading, data]);
 
   const ToggleSave = () => {
     console.log(saved);
@@ -31,8 +56,8 @@ const AlbumPage = () => {
     return <TailSpinLoader />;
   }
 
-  const { images, name, release_date, artists, tracks } = data;
-  console.log(tracks);
+  const { images, name, release_date, artists, tracks, uri } = data;
+
   return (
     <React.Fragment>
       <div className="spacer"></div>
@@ -49,7 +74,14 @@ const AlbumPage = () => {
           </div>
         </div>
         <div className="album-nav">
-          <button className="album-nav-btn clickable">
+          <button
+            className="album-nav-btn clickable"
+            onClick={() => {
+              setSpUris(playlistSpotifyUris(tracks.items));
+              startSpotifyPlayback(spDeviceId, 0, spUris);
+              setCurrentSong(tracks.items[0].uri);
+            }}
+          >
             <div className="btn-content">
               <FaPlay color="#111b24" />
               <div className="ml-10">Play</div>

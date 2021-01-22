@@ -7,7 +7,7 @@ const startSpotifyPlayback = (id, position, uri) =>
       Authorization: `Bearer ${getCookie("spotifyAccess")}`,
     },
     body: JSON.stringify({
-      uris: [uri],
+      uris: uri,
       position_ms: position,
     }),
   });
