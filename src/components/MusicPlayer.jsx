@@ -7,7 +7,12 @@ import { FaSpotify, FaSoundcloud, FaYoutube } from "react-icons/fa";
 import { FaPlay, FaPause } from "react-icons/fa";
 import { BiShuffle } from "react-icons/bi";
 import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
-import { MdRepeat, MdRepeatOne } from "react-icons/md";
+import {
+  MdAirlineSeatIndividualSuite,
+  MdRepeat,
+  MdRepeatOne,
+} from "react-icons/md";
+import { startSpotifyPlayback } from "../api/spotifyPlayback";
 
 const MusicPlayer = () => {
   const [loading, setLoading] = useState(true);
@@ -21,9 +26,17 @@ const MusicPlayer = () => {
 
   const spotifyPlayer = useRef(null);
 
-  const { setSpDeviceId, currentSong, setCurrentSong } = useContext(
-    StreamingContext
-  );
+  const {
+    setSpDeviceId,
+    spDeviceId,
+    currentSong,
+    setCurrentSong,
+    next,
+    last,
+    setNext,
+    setLast,
+    albumArray,
+  } = useContext(StreamingContext);
 
   const timeoutId = useRef(null);
 
@@ -96,19 +109,39 @@ const MusicPlayer = () => {
     return (
       <div className="music-player">
         <img
-          className="playing-art"
+          className="playing-art clickable"
           src={current_track.album.images[0].url}
           alt={`Cover art for ${current_track.name}`}
         ></img>
         <div className="playing-info">
-          <h1>{current_track.name}</h1>
-          <h3>{current_track.artists[0].name}</h3>
+          <h1 className="white">{current_track.name}</h1>
+          <h3 className="gray blue-on-hover clickable">
+            {current_track.artists[0].name}
+          </h3>
         </div>
 
         <div className="controls-container">
           <div className="centered-flex-container main-controls space-around">
             <BiShuffle className="clickable gray blue-on-hover" size={20} />
             <AiFillStepBackward
+              onClick={() => {
+                if (last) {
+                  setCurrentSong(last);
+                  startSpotifyPlayback(spDeviceId, 0, [last]);
+                  console.log(albumArray);
+                  let playOrder = findSongOrder(albumArray, last);
+                  if (playOrder.next !== null) {
+                    console.log(playOrder);
+                    setNext(playOrder.next);
+                  }
+
+                  if (playOrder.last !== null) {
+                    setLast(playOrder.last);
+                  }
+                } else {
+                  spotifyPlayer.current.previousTrack();
+                }
+              }}
               className="clickable gray blue-on-hover"
               size={20}
             />
@@ -135,6 +168,25 @@ const MusicPlayer = () => {
             )}
 
             <AiFillStepForward
+              onClick={() => {
+                if (next) {
+                  // change current track to the track that is within the next variable
+                  setCurrentSong(next);
+                  startSpotifyPlayback(spDeviceId, 0, [next]);
+                  console.log(albumArray);
+                  let playOrder = findSongOrder(albumArray, next);
+                  if (playOrder.next !== null) {
+                    console.log(playOrder);
+                    setNext(playOrder.next);
+                  }
+
+                  if (playOrder.last !== null) {
+                    setLast(playOrder.last);
+                  }
+                } else {
+                  spotifyPlayer.current.nextTrack();
+                }
+              }}
               className="clickable gray blue-on-hover"
               size={20}
             />
@@ -161,3 +213,32 @@ const MusicPlayer = () => {
 };
 
 export default MusicPlayer;
+
+const findSongOrder = (album, id) => {
+  if (album.length === 1) {
+    return { last: album[0], next: album[0] };
+  }
+
+  let last;
+  let next;
+
+  for (let i = 0; i < album.length; i++) {
+    if (album[i].uri === id) {
+      if (album[i - 1]) {
+        last = album[i - 1].uri;
+      } else {
+        last = null;
+      }
+
+      if (album[i + 1]) {
+        next = album[i + 1].uri;
+      } else {
+        next = null;
+      }
+
+      return { last: last, next: next };
+    }
+  }
+
+  return { last: null, next: null };
+};

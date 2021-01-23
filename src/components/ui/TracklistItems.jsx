@@ -20,6 +20,9 @@ const TrackItem = ({ track, index, album }) => {
     setLast,
     currentSong,
     setCurrentSong,
+    albumArray,
+    setAlbumArray,
+    setSpUris,
   } = useContext(StreamingContext);
 
   const toggleHover = () => {
@@ -29,6 +32,8 @@ const TrackItem = ({ track, index, album }) => {
   const playSong = () => {
     startSpotifyPlayback(spDeviceId, 0, [uri]).then(() => {
       setCurrentSong(uri);
+      setAlbumArray(album);
+      setSpUris(null);
     });
     if (index < album.length - 1) {
       setNext(album[index + 1].uri);

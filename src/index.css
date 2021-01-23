@@ -791,6 +791,7 @@ td {
   justify-content: left;
   align-items: left;
   text-align: left;
+  width: 200px;
 }
 
 .playing-info-top {

@@ -32,6 +32,8 @@ const AlbumPage = () => {
     spDeviceId,
     spUris,
     setCurrentSong,
+    setNext,
+    setLast,
   } = useContext(StreamingContext);
   const { loading, data } = useFetchByPlatform(`${endpoints[platform]}/${id}`);
   const [saved, setSaved] = useState(false);
@@ -77,9 +79,15 @@ const AlbumPage = () => {
           <button
             className="album-nav-btn clickable"
             onClick={() => {
-              setSpUris(playlistSpotifyUris(tracks.items));
-              startSpotifyPlayback(spDeviceId, 0, spUris);
               setCurrentSong(tracks.items[0].uri);
+              setSpUris(playlistSpotifyUris(tracks.items));
+              startSpotifyPlayback(
+                spDeviceId,
+                0,
+                playlistSpotifyUris(tracks.items)
+              );
+              setNext(null);
+              setLast(null);
             }}
           >
             <div className="btn-content">

@@ -42,6 +42,10 @@ class App extends React.Component {
     setCurrentSong: (uri) => {
       this.setState({ currentSong: uri });
     },
+    albumArray: [],
+    setAlbumArray: (arr) => {
+      this.setState({ albumArray: arr });
+    },
   };
 
   render() {
