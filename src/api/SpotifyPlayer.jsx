@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import getCookie from "../utilities/cookies";
 import { startSpotifyPlayback, pauseSpotifyPlayback } from "./spotifyPlayback";
 import StreamingContext from "../contexts/streamingContext";
+import PlayerContext from "../contexts/playerContext";
 
 const Player = () => {
   const [loading, setLoading] = useState(true);
@@ -69,6 +70,7 @@ const Player = () => {
   player.addListener("player_state_changed", (state) => {
     position.current = state.position;
     duration.current = state.duration;
+
     if (position.current >= duration.current) {
       position.current = 0;
     }
@@ -105,30 +107,32 @@ const Player = () => {
     }
   });
   return (
-    <div>
-      <p>the loaded player</p>
-      <button
-        onClick={() => {
-          startSpotifyPlayback(
-            spDeviceId,
-            position.current,
-            "spotify:track:4cAgkb0ifwn0FSHGXnr4F6"
-          )
-            .catch((e) => {
-              console.log(e);
-            })
-            .then((resp) => {
-              console.log(resp.json());
-            });
-        }}
-      >
-        Toggle Play
-      </button>
+    <React.Fragment>
+      <div>
+        <p>the loaded player</p>
+        <button
+          onClick={() => {
+            startSpotifyPlayback(
+              spDeviceId,
+              position.current,
+              "spotify:track:4cAgkb0ifwn0FSHGXnr4F6"
+            )
+              .catch((e) => {
+                console.log(e);
+              })
+              .then((resp) => {
+                console.log(resp.json());
+              });
+          }}
+        >
+          Toggle Play
+        </button>
 
-      <button onClick={() => pauseSpotifyPlayback(spDeviceId)}>
-        Pause Playback
-      </button>
-    </div>
+        <button onClick={() => pauseSpotifyPlayback(spDeviceId)}>
+          Pause Playback
+        </button>
+      </div>
+    </React.Fragment>
   );
 };
 

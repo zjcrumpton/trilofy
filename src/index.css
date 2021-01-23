@@ -172,6 +172,7 @@ code {
 .dashboard-panel {
   max-width: 100%;
   margin-left: 300px;
+  margin-bottom: 100px;
 }
 
 .platform-settings {
@@ -491,7 +492,7 @@ code {
 }
 
 .release-image {
-  width: 250px;
+  width: 220px;
 }
 
 .release-image + .release-title {
@@ -759,4 +760,82 @@ td {
 
 .blue {
   color: #00d4ff;
+}
+
+/* Music Playback Controls */
+.music-player {
+  background-color: #09233f;
+  width: 100%;
+  height: 80px;
+  position: fixed;
+  bottom: 0;
+  border: black 2px solid;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.playing-art {
+  width: 60px;
+  height: 60px;
+  margin-left: 20px;
+}
+
+.playing-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+  text-align: left;
+}
+
+.playing-info-top {
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  text-align: left;
+}
+
+.gray {
+  color: #adbdcc;
+}
+
+.white {
+  color: white;
+}
+
+.blue-on-hover:hover {
+  color: #00d4ff;
+}
+
+.space-around {
+  justify-content: space-around;
+}
+
+.main-controls {
+  width: 200px;
+}
+
+.controls-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  height: 50px;
+}
+
+.progress-wrapper {
+  width: 500px;
+  height: 5px;
+  border: gray 0.5px solid;
+  border-radius: 100px;
+}
+
+.progress-bar {
+  background-color: #adbdcc;
 }
