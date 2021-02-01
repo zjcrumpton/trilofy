@@ -13,6 +13,7 @@ import {
   MdRepeatOne,
 } from "react-icons/md";
 import { startSpotifyPlayback } from "../api/spotifyPlayback";
+import { GrBackTen, GrForwardTen } from "react-icons/gr";
 
 const MusicPlayer = () => {
   const [loading, setLoading] = useState(true);
@@ -192,6 +193,7 @@ const MusicPlayer = () => {
             />
             <MdRepeat className="clickable gray blue-on-hover" size={20} />
           </div>
+          <GrBackTen />
           <div className="progress-wrapper">
             <div
               className="progress-bar"
@@ -202,6 +204,7 @@ const MusicPlayer = () => {
               }}
             ></div>
           </div>
+          <GrForwardTen />
         </div>
 
         <FaSpotify color="#17d85d" size={40} style={{ marginRight: "20px" }} />

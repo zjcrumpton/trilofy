@@ -7,6 +7,7 @@ import Searchbar from "./Searchbar";
 import Home from "./Home";
 import AlbumPage from "../api/AlbumPage";
 import MusicPlayer from "./MusicPlayer";
+import Explore from "./Explore";
 
 const Dashboard = () => {
   return (
@@ -17,6 +18,7 @@ const Dashboard = () => {
       <Route exact path="/dashboard/settings" component={Settings} />
       <Route exact path="/dashboard/home" component={Home} />
       <Route path="/dashboard/album/:id" component={AlbumPage} />
+      <Route exact path="/dashboard/explore" component={Explore} />
       <MusicPlayer />
     </div>
   );
