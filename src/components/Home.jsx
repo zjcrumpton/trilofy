@@ -8,7 +8,11 @@ import TopArtists from "../api/TopArtists";
 import Loader from "react-loader-spinner";
 import FeaturedPlaylists from "../api/FeaturedPlaylists";
 
+import { useSelector, useDispatch } from "react-redux";
+
 const Home = () => {
+  const platform = useSelector((state) => state.windowPlatform);
+
   const streamingContext = React.useContext(StreamingContext);
   const [spotifyLoggedIn, setSpotifyLoggedIn] = React.useState(
     isSpotifyActive()
@@ -36,11 +40,11 @@ const Home = () => {
     );
   }
 
-  if (!spotifyLoggedIn && streamingContext.platform === "spotify") {
+  if (!spotifyLoggedIn && platform === "spotify") {
     return loggedOutNotice();
   }
 
-  if (streamingContext.platform === "spotify") {
+  if (platform === "spotify") {
     return (
       <div className="dashboard-panel">
         <div className="spacer"></div>
