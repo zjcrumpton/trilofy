@@ -8,6 +8,11 @@ const reducer = (state, action) => {
         ...state,
         windowPlatform: action.platform,
       };
+    case "SET_PLAYER_PLATFORM":
+      return {
+        ...state,
+        playerPlatform: action.platform,
+      };
     default:
       return state;
   }

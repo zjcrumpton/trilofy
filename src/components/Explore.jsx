@@ -1,50 +1,33 @@
 import React from "react";
-import { connect } from "react-redux";
 import { setWindowPlatform } from "../actions/actions";
+import { useSelector, useDispatch } from "react-redux";
 
-const Explore = ({ windowPlatform, state, updateWindowPlatform }) => {
-  console.log(state);
-  console.log(setWindowPlatform("sc"));
+const Explore = () => {
+  const platform = useSelector((state) => state.windowPlatform);
+  const dispatch = useDispatch();
+
   return (
     <div style={{ width: "200px", marginTop: "500px", marginLeft: "500px" }}>
       <p>this is the explore page</p>
-      <h1>Platform is: {windowPlatform}</h1>
+      <h1>Platform is: {platform}</h1>
 
       <button
         style={{ marginTop: "100px" }}
-        onClick={() => updateWindowPlatform("Spotify")}
+        onClick={() => dispatch(setWindowPlatform("Spotify"))}
       >
         Spotify
       </button>
 
       <button
         style={{ marginTop: "100px" }}
-        onClick={() => updateWindowPlatform("Soundcloud")}
+        onClick={() => dispatch(setWindowPlatform("Soundcloud"))}
       >
         Soundcloud
       </button>
 
-      <button
-        style={{ marginTop: "100px" }}
-        onClick={() => updateWindowPlatform("YouTube")}
-      >
-        YouTube
-      </button>
+      <button style={{ marginTop: "100px" }}>YouTube</button>
     </div>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    windowPlatform: state.windowPlatform,
-    state: state,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    updateWindowPlatform: (platform) => dispatch(setWindowPlatform(platform)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Explore);
+export default Explore;

@@ -4,3 +4,10 @@ export const setWindowPlatform = (platform) => {
     platform,
   };
 };
+
+export const setPlayerPlatform = (platform) => {
+  return {
+    type: "SET_PLAYER_PLATFORM",
+    platform,
+  };
+};
