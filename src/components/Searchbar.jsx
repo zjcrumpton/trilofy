@@ -1,6 +1,5 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
-import { FaSpotify, FaSoundcloud, FaYoutube } from "react-icons/fa";
 import StreamingSetter from "./StreamingSetter";
 
 const Searchbar = () => {

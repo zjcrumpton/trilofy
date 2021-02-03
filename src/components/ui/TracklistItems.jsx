@@ -14,13 +14,10 @@ const TrackItem = ({ track, index, album }) => {
   const [hovering, setHovering] = useState(false);
   const {
     spDeviceId,
-    next,
     setNext,
-    last,
     setLast,
     currentSong,
     setCurrentSong,
-    albumArray,
     setAlbumArray,
     setSpUris,
   } = useContext(StreamingContext);

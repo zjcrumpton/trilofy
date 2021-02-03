@@ -9,6 +9,8 @@ import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { AiFillInfoCircle as Info } from "react-icons/ai";
 import Tracklist from "../components/ui/Tracklist";
 import { startSpotifyPlayback } from "../api/spotifyPlayback";
+import { Redirect, Switch, Route } from "react-router-dom";
+import Settings from "../components/Settings";
 
 const endpoints = {
   spotify: "https://api.spotify.com/v1/albums",
@@ -39,7 +41,7 @@ const AlbumPage = () => {
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    if (!loading) {
+    if (!loading && data !== "expired_token") {
       setSpUris(playlistSpotifyUris(data.tracks.items));
     }
 
@@ -56,6 +58,12 @@ const AlbumPage = () => {
 
   if (loading) {
     return <TailSpinLoader />;
+  }
+
+  console.log(data);
+
+  if (data === "expired_token") {
+    return <Settings />;
   }
 
   const { images, name, release_date, artists, tracks, uri } = data;

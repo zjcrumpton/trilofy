@@ -11,3 +11,10 @@ export const setPlayerPlatform = (platform) => {
     platform,
   };
 };
+
+export const setSpotifyToken = (token) => {
+  return {
+    type: "SET_SPOTIFY_TOKEN",
+    token,
+  };
+};

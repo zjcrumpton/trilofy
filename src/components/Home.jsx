@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import StreamingContext from "../contexts/streamingContext";
 import getCookie from "../utilities/cookies";
 import NewReleases from "../api/NewReleases";
@@ -7,26 +7,21 @@ import SpotifyLogin from "./streamingPlatformLogins/spotifyLogin";
 import TopArtists from "../api/TopArtists";
 import Loader from "react-loader-spinner";
 import FeaturedPlaylists from "../api/FeaturedPlaylists";
+import checkSpotifyToken from "../api/spotifyAuth";
 
 import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react/cjs/react.development";
 
 const Home = () => {
   const platform = useSelector((state) => state.windowPlatform);
+  const [spotifyToken, setSpotifyToken] = useState(checkSpotifyToken());
 
-  const streamingContext = React.useContext(StreamingContext);
-  const [spotifyLoggedIn, setSpotifyLoggedIn] = React.useState(
-    isSpotifyActive()
-  );
   const [loading, setLoading] = React.useState(true);
 
-  React.useEffect(() => {
-    if (streamingContext.spotifyLoggedIn !== spotifyLoggedIn) {
-      setSpotifyLoggedIn(isSpotifyActive());
-      streamingContext.updateSpotifyLogin(spotifyLoggedIn);
-    }
-
+  useEffect(() => {
+    setSpotifyToken(checkSpotifyToken());
     setLoading(false);
-  }, [streamingContext, spotifyLoggedIn]);
+  }, [spotifyToken]);
 
   if (loading) {
     return (
@@ -40,7 +35,7 @@ const Home = () => {
     );
   }
 
-  if (!spotifyLoggedIn && platform === "spotify") {
+  if (!spotifyToken && platform === "spotify") {
     return loggedOutNotice();
   }
 

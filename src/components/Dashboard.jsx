@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import SideNav from "./SideNav";
 import { Route } from "react-router-dom";
 import Authentication from "./Authentication";
@@ -16,8 +16,8 @@ const Dashboard = () => {
       <Searchbar />
       <Route exact path="/dashboard" component={Authentication} />
       <Route exact path="/dashboard/settings" component={Settings} />
-      <Route exact path="/dashboard/home" component={Home} />
       <Route path="/dashboard/album/:id" component={AlbumPage} />
+      <Route exact path="/dashboard/home" component={Home} />
       <Route exact path="/dashboard/explore" component={Explore} />
       <MusicPlayer />
     </div>

@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
-import getCookie from "../utilities/cookies";
 import StreamingContext from "../contexts/streamingContext";
+import checkSpotifyToken from "../api/spotifyAuth";
 
 const useFetchByPlatform = (url) => {
   const [loading, setLoading] = useState(true);
@@ -11,11 +11,20 @@ const useFetchByPlatform = (url) => {
     StreamingContext
   );
 
-  const fetchFromSpotify = (url) =>
-    fetch(url, {
+  const fetchFromSpotify = (url) => {
+    if (!checkSpotifyToken()) {
+      return new Promise(() => {
+        setLoading(false);
+        setData("expired_token");
+        setError("expired_token");
+        return "expired-token";
+      });
+    }
+
+    return fetch(url, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${getCookie("spotifyAccess")}`,
+        Authorization: `Bearer ${checkSpotifyToken()}`,
       },
     })
       .then((resp) => {
@@ -32,6 +41,7 @@ const useFetchByPlatform = (url) => {
         setError(e);
         return Promise.reject(e);
       });
+  };
 
   const handleSpotifyError = (error) => {
     const { status } = error;

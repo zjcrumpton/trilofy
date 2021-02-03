@@ -19,7 +19,7 @@ const SideNav = () => {
       <div className="side-container-flex">
         <div className="centered-flex-container dashboard-profile">
           <Headphones size={30} color="#adbdcc" />
-          <h1 className="dashboard-logo">zjcrumpton</h1>
+          <h1 className="dashboard-logo">Trilofy Music</h1>
 
           <NavLink
             exact
