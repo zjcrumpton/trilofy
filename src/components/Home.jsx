@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import StreamingContext from "../contexts/streamingContext";
 import getCookie from "../utilities/cookies";
 import NewReleases from "../api/NewReleases";
 import RecentlyPlayed from "../api/RecentlyPlayed";
@@ -11,17 +10,21 @@ import checkSpotifyToken from "../api/spotifyAuth";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react/cjs/react.development";
+import { useLocation } from "react-router-dom";
 
 const Home = () => {
   const platform = useSelector((state) => state.windowPlatform);
   const [spotifyToken, setSpotifyToken] = useState(checkSpotifyToken());
 
+  const [path, setPath] = useState(useLocation().pathname);
+
   const [loading, setLoading] = React.useState(true);
 
   useEffect(() => {
+    console.log("I am for sure using Effect");
     setSpotifyToken(checkSpotifyToken());
     setLoading(false);
-  }, [spotifyToken]);
+  }, [spotifyToken, path]);
 
   if (loading) {
     return (
@@ -35,7 +38,10 @@ const Home = () => {
     );
   }
 
+  // a bit hacky, but updating the state when we come back from Spotify auth
+  // allows the page to force re render and show the albums instead of the login
   if (!spotifyToken && platform === "spotify") {
+    if (path) setPath(null);
     return loggedOutNotice();
   }
 
